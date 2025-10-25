@@ -8,6 +8,7 @@ const ControlPresupuesto = ({ presupuesto, gastos, resetearApp }) => {
   const [disponible, setDisponible] = useState(0);
   const [gastado, setGastado] = useState(0);
   const [porcentaje, setPorcentaje] = useState(0);
+  
 
   useEffect(() => {
     const totalGastado = gastos.reduce(
@@ -28,7 +29,8 @@ const ControlPresupuesto = ({ presupuesto, gastos, resetearApp }) => {
   }, [gastos]);
 
   return (
-    <View style={style.contenedor}>
+    
+    <View style={style.contenedor} >
       <View style={style.centrarGrafica}>
         <CircularProgress
           value={porcentaje} // El progreso que quieres mostrar

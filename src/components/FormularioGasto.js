@@ -1,6 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TextInput, Pressable } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { useEffect, useState } from "react";
+import {
+  Keyboard,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import globalStyles from "../styles";
 
 const FormularioGastos = ({
@@ -27,91 +35,92 @@ const FormularioGastos = ({
   }, [gasto]);
 
   return (
-    <View style={style.contenedor}>
-      <View style={style.contenedorBotones}>
-        <Pressable
-          onLongPress={() => {
-            setModal(false);
-            setGasto({});
-          }}
-          style={[style.btn, style.btnCancelar]}
-        >
-          <Text style={style.btnTexto}>Cancelar</Text>
-        </Pressable>
-
-        { !!id && (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={style.contenedor}>
+        <View style={style.contenedorBotones}>
           <Pressable
-          onLongPress={() => {
-            eliminarGasto(id);
-          }}
-          style={[style.btn, style.btnEliminar]}
-        >
-          <Text style={style.btnTexto}>Eliminar</Text>
-        </Pressable>
-        )}
-        
-      </View>
-
-      <View style={style.formulario}>
-        <Text style={style.titulo}>
-          {" "}
-          {gasto?.nombre ? "Editar Gasto" : "Nuevo Gasto"}{" "}
-        </Text>
-
-        <View style={style.campo}>
-          <Text style={style.label}>Nombre Gasto:</Text>
-          <TextInput
-            style={style.input}
-            placeholder="Nombre del gasto ej. comida"
-            value={nombre}
-            onChangeText={setNombre}
-          />
-        </View>
-
-        <View style={style.campo}>
-          <Text style={style.label}>Cantidad Gasto:</Text>
-          <TextInput
-            style={style.input}
-            placeholder="Cantidad del gasto ej. 300"
-            keyboardType="numeric"
-            value={cantidad}
-            onChangeText={setCantidad}
-          />
-        </View>
-
-        <View style={style.campo}>
-          <Text style={style.label}>Categoria Gasto:</Text>
-          <Picker
-            style={style.input}
-            selectedValue={categoria}
-            onValueChange={(valor) => {
-              setCategoria(valor);
+            onLongPress={() => {
+              setModal(false);
+              setGasto({});
             }}
+            style={[style.btn, style.btnCancelar]}
           >
-            <Picker.Item label="-- Seleccione --" value="" />
-            <Picker.Item label="Ahorro" value="ahorro" />
-            <Picker.Item label="Comida" value="comida" />
-            <Picker.Item label="Casa" value="casa" />
-            <Picker.Item label="Gastos varios" value="gastos" />
-            <Picker.Item label="Ocio" value="ocio" />
-            <Picker.Item label="Salud" value="salud" />
-            <Picker.Item label="Suscripciones" value="suscripciones" />
-          </Picker>
+            <Text style={style.btnTexto}>Cancelar</Text>
+          </Pressable>
+
+          {!!id && (
+            <Pressable
+              onLongPress={() => {
+                eliminarGasto(id);
+              }}
+              style={[style.btn, style.btnEliminar]}
+            >
+              <Text style={style.btnTexto}>Eliminar</Text>
+            </Pressable>
+          )}
         </View>
-        <Pressable
-          onPress={() => {
-            handleGasto({ nombre, cantidad, categoria, id, fecha });
-            setGasto({});
-          }}
-          style={style.submitBtn}
-        >
-          <Text style={style.submitBtnTexto}>
+
+        <View style={style.formulario}>
+          <Text style={style.titulo}>
             {" "}
-            {gasto?.nombre ? "Editar Gasto" : "Agregar Gasto"}
+            {gasto?.nombre ? "Editar Gasto" : "Nuevo Gasto"}{" "}
           </Text>
-        </Pressable>
+
+          <View style={style.campo}>
+            <Text style={style.label}>Nombre Gasto:</Text>
+            <TextInput
+              style={style.input}
+              placeholder="Nombre del gasto ej. comida"
+              value={nombre}
+              onChangeText={setNombre}
+            />
+          </View>
+
+          <View style={style.campo}>
+            <Text style={style.label}>Cantidad Gasto:</Text>
+            <TextInput
+              style={style.input}
+              placeholder="Cantidad del gasto ej. 300"
+              keyboardType="numeric"
+              value={cantidad}
+              onChangeText={setCantidad}
+            />
+          </View>
+
+          <View style={style.campo}>
+            <Text style={style.label}>Categoria Gasto:</Text>
+            <Picker
+              style={style.input}
+              selectedValue={categoria}
+              onValueChange={(valor) => {
+                setCategoria(valor);
+              }}
+            >
+              <Picker.Item label="-- Seleccione --" value="" />
+              <Picker.Item label="Ahorro" value="ahorro" />
+              <Picker.Item label="Comida" value="comida" />
+              <Picker.Item label="Casa" value="casa" />
+              <Picker.Item label="Gastos varios" value="gastos" />
+              <Picker.Item label="Ocio" value="ocio" />
+              <Picker.Item label="Salud" value="salud" />
+              <Picker.Item label="Suscripciones" value="suscripciones" />
+            </Picker>
+          </View>
+          <Pressable
+            onPress={() => {
+              handleGasto({ nombre, cantidad, categoria, id, fecha });
+              setGasto({});
+            }}
+            style={style.submitBtn}
+          >
+            <Text style={style.submitBtnTexto}>
+              {" "}
+              {gasto?.nombre ? "Editar Gasto" : "Agregar Gasto"}
+            </Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
