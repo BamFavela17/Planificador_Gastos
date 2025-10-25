@@ -1,7 +1,6 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import globalStyles from "../styles";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { formatearCantidad, formatearFecha } from "../helpers";
+import globalStyles from "../styles";
 
 const diccionarioIconos = {
   ahorro: require("../img/icono_ahorro.png"),
